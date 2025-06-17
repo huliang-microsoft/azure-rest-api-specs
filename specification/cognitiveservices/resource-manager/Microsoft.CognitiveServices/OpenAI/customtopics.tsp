@@ -56,9 +56,9 @@ model InternalServerError {
 }
 
 namespace CustomTopic {
-  @route("/raitopics/{topicName}:createAndTrain")
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raitopics/{topicName}:createAndTrain")
   @put
-  op createAndTrain(topicName: string, @body body: CustomTopicCreationRequest, @query query: CustomTopicBasicQueryParameters): {
+  op createAndTrain(subscriptionId: string, resourceGroupName: string, accountName: string, topicName: string, @body body: CustomTopicCreationRequest, @query query: CustomTopicBasicQueryParameters): {
     @statusCode statusCode: 201;
     @body newModel: CustomTopicModelResponse;
   } | {
@@ -70,9 +70,9 @@ namespace CustomTopic {
         @body error: InternalServerError;
       };
 
-  @route("/raitopics/{topicName}")
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raitopics/{topicName}")
   @get
-  op get(topicName: string, @query query: CustomTopicBasicQueryParameters): {
+  op get(subscriptionId: string, resourceGroupName: string, accountName: string, topicName: string, @query query: CustomTopicBasicQueryParameters): {
     @statusCode statusCode: 200;
     @body existingModel: CustomTopicModelResponse;
   } | {
@@ -81,7 +81,7 @@ namespace CustomTopic {
     @body error: NotFoundError;
   };
   @delete
-  op delete(topicName: string, @query query: CustomTopicBasicQueryParameters): {
+  op delete(subscriptionId: string, resourceGroupName: string, accountName: string, topicName: string, @query query: CustomTopicBasicQueryParameters): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
@@ -89,9 +89,9 @@ namespace CustomTopic {
     @body error: NotFoundError;
   };
 
-  @route("/raitopics/")
+  @route("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raitopics/")
   @get
-  op listTopics(@query query: CustomTopicBasicQueryParameters): {
+  op listTopics(subscriptionId: string, resourceGroupName: string, accountName: string, @query query: CustomTopicBasicQueryParameters): {
     @statusCode statusCode: 200;
     @body existingModels: CustomTopicModelResponse[];
   } | {

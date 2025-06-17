@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Customization Service
+  title: Custom Topic API
   version: 0.0.0
 tags: []
 paths:
@@ -30,14 +30,38 @@ paths:
             schema:
               type: object
               properties:
+                subscriptionId:
+                  type: string
+                resourceGroupName:
+                  type: string
+                accountName:
+                  type: string
                 topicName:
                   type: string
               required:
+                - subscriptionId
+                - resourceGroupName
+                - accountName
                 - topicName
-  /raitopics/:
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raitopics/:
     get:
       operationId: CustomTopic_listTopics
       parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: resourceGroupName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: accountName
+          in: path
+          required: true
+          schema:
+            type: string
         - name: query
           in: query
           required: true
@@ -59,10 +83,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
-  /raitopics/{topicName}:
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raitopics/{topicName}:
     get:
       operationId: CustomTopic_get
       parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: resourceGroupName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: accountName
+          in: path
+          required: true
+          schema:
+            type: string
         - name: topicName
           in: path
           required: true
@@ -87,10 +126,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundError'
-  /raitopics/{topicName}:createAndTrain:
+  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raitopics/{topicName}:createAndTrain:
     put:
       operationId: CustomTopic_createAndTrain
       parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: resourceGroupName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: accountName
+          in: path
+          required: true
+          schema:
+            type: string
         - name: topicName
           in: path
           required: true
